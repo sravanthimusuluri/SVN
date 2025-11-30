@@ -1,43 +1,25 @@
 import React, { useState } from "react";
-import emailjs from "@emailjs/browser";
 import "./Feedback.css";
 
 function Feedback() {
-  const [email, setEmail] = useState("");       // Customer email
-  const [message, setMessage] = useState("");   // Feedback message
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
-  const sendFeedback = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Template parameters for EmailJS
-    const templateParams = {
-      customer_email: email,                   // Customer email from form
-      feedback_message: message,               // Feedback message from form
-      site_owner_email: "2400030661@kluniversity.in", // Your site owner email
-      subject: "Thank you for your feedback!",  // Optional: subject
-    };
+    // For now, just show an alert
+    alert(`Thank you for your feedback!\nEmail: ${email}\nMessage: ${message}`);
 
-    emailjs.send(
-      "service_3kyip88",       // Your EmailJS Service ID
-      "template_xvg7jqs",      // Your EmailJS Template ID
-      templateParams,
-      "m0Z05ac1qU-1sy3zx"     // Your Public Key
-    )
-    .then((response) => {
-      alert("Feedback sent successfully!");
-      setEmail("");
-      setMessage("");
-    })
-    .catch((err) => {
-      console.error("Error sending feedback:", err);
-      alert("Failed to send feedback. Please try again.");
-    });
+    // Clear form fields
+    setEmail("");
+    setMessage("");
   };
 
   return (
     <div className="feedback-container">
       <h2>Give Your Feedback</h2>
-      <form onSubmit={sendFeedback} className="feedback-form">
+      <form onSubmit={handleSubmit} className="feedback-form">
         <input
           type="email"
           placeholder="Your email"
